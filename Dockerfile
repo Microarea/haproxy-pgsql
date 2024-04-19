@@ -29,9 +29,9 @@ RUN set -eux; \
 	mkdir /var/lib/haproxy; \
 	chown haproxy:haproxy /var/lib/haproxy
 
-ENV HAPROXY_VERSION 2.8.9
-ENV HAPROXY_URL https://www.haproxy.org/download/2.8/src/haproxy-2.8.9.tar.gz
-ENV HAPROXY_SHA256 7a821478f36f847607f51a51e80f4f890c37af4811d60438e7f63783f67592ff
+ENV HAPROXY_VERSION 2.9.7
+ENV HAPROXY_URL https://www.haproxy.org/download/2.8/src/haproxy-2.9.7.tar.gz
+ENV HAPROXY_SHA256 d1a0a56f008a8d2f007bc0c37df6b2952520d1f4dde33b8d3802710e5158c131
 
 # see https://sources.debian.net/src/haproxy/jessie/debian/rules/ for some helpful navigation of the possible "make" arguments
 RUN set -eux; \
@@ -40,7 +40,7 @@ RUN set -eux; \
 	apt-get update && apt-get install -y --no-install-recommends \
 		gcc \
 		libc6-dev \
-		liblua5.3-dev \
+		liblua5.4-dev \
 		libpcre2-dev \
 		libssl-dev \
 		make \
@@ -57,7 +57,7 @@ RUN set -eux; \
 	makeOpts=' \
 		TARGET=linux-glibc \
 		USE_GETADDRINFO=1 \
-		USE_LUA=1 LUA_INC=/usr/include/lua5.3 \
+		USE_LUA=1 LUA_INC=/usr/include/lua5.4 \
 		USE_OPENSSL=1 \
 		USE_PCRE2=1 USE_PCRE2_JIT=1 \
 		USE_PROMEX=1 \
