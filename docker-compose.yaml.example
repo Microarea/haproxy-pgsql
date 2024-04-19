@@ -1,0 +1,12 @@
+services:
+  haproxy:
+    image: microarea/haproxy-pgsql
+    ports:
+      - 5432:5432 # Postgres connection port
+      - 3000:3000 # Stats endpoint
+      - 8405:8405 # Prometheus metrics endpoint (on /metrics)
+    environment:
+      - PG_MONITOR_USER=postgres
+      - PG_MONITOR_PASS=very-secure-password
+      - PG_MONITOR_DB=postgres
+      - PG_NODES=10.0.0.1:5432;10.0.0.2:5432
