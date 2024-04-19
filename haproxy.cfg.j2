@@ -1,0 +1,40 @@
+global
+    maxconn 4096
+    ulimit-n 30000
+    external-check
+    insecure-fork-wanted
+    log stdout format raw daemon notice
+
+defaults
+    log     global
+    mode    tcp
+    option  tcplog
+    option  dontlognull
+    option tcp-check
+    option srvtcpka
+    http-reuse aggressive
+    timeout client  180m
+    timeout server  180m
+    timeout connect 2s
+
+frontend prometheus
+    bind *:8405
+    mode http
+    http-request use-service prometheus-exporter if { path /metrics }
+    no log
+
+listen stats
+    bind *:3000
+    mode http
+    stats enable
+    stats uri /
+    stats refresh 30s
+
+listen primary
+    bind *:5432
+    maxconn 2048
+    option external-check
+    external-check command /opt/primary-check.sh
+    default-server init-addr none check inter 2s fall 1 rise 2 slowstart 4000
+{% set pg_nodes_list = pg_nodes.split(';') %}{% for node in pg_nodes_list %}    server pg-{{ loop.index }} {{ node }}
+{% endfor %}
