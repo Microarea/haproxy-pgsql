@@ -13,6 +13,3 @@ See [docker-compose.yaml.example](https://github.com/Microarea/haproxy-pgsql/blo
 | `PG_MONITOR_PASS` | Password for `PG_MONITOR_USER`                                                      |
 | `PG_MONITOR_DB`   | Login database for `PG_MONITOR_USER`                                                |
 | `PG_NODES`        | Semicolon separated list of nodes                                                   |
-
-## Acknowledgements
-This is based on the [Docker Official Image](https://github.com/docker-library/haproxy) for HAProxy.
